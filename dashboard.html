@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Tour Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .dashboard-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .dashboard-title {
+            flex: 1;
+        }
+        
+        .dashboard-title h1 {
+            color: white;
+            margin-bottom: 5px;
+        }
+        
+        .dashboard-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .stat-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            color: #6b7280;
+            font-size: 14px;
+        }
+        
+        .info-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .info-card h3 {
+            color: #1f2937;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-label {
+            font-size: 12px;
+            color: #6b7280;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-size: 16px;
+            color: #1f2937;
+            font-weight: 500;
+        }
+        
+        /* Driver Image Styles */
+        .driver-image-section {
+            grid-column: 1 / -1;
+            margin-top: 15px;
+        }
+        
+        .driver-image-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .driver-thumbnail {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #e5e7eb;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .driver-thumbnail:hover {
+            transform: scale(1.05);
+            border-color: #3b82f6;
+            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+        }
+        
+        .view-image-btn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .view-image-btn:hover {
+            background: #1e40af;
+            transform: scale(1.1);
+        }
+        
+        .image-actions {
+            margin-top: 10px;
+        }
+        
+        .no-image-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 2px dashed #d1d5db;
+            color: #6b7280;
+        }
+        
+        .no-image-placeholder i {
+            font-size: 48px;
+            margin-bottom: 10px;
+            opacity: 0.5;
+        }
+        
+        .no-image-placeholder span {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* Image Modal Styles */
+        .image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            cursor: pointer;
+        }
+        
+        .image-modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+            cursor: default;
+        }
+        
+        .image-modal img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .image-modal-close {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .image-modal-close:hover {
+            background: #dc2626;
+            transform: scale(1.1);
+        }
+        
+        .member-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .member-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .member-name {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .member-contribution {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .chart-container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .expense-bar {
+            margin-bottom: 15px;
+        }
+        
+        .expense-bar-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .expense-bar-label {
+            font-weight: 600;
+            color: #1f2937;
+        }
+        
+        .expense-bar-value {
+            color: #6b7280;
+        }
+        
+        .expense-bar-fill {
+            height: 30px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .diesel-record {
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .fuel-expense-record {
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .diesel-record-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .record-type {
+            font-weight: 600;
+            font-size: 14px;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+        
+        .diesel-type {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .fuel-type {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .record-date {
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+        
+        .diesel-record-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        
+        @media print {
+            .dashboard-actions, .btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <div class="dashboard-title">
+                <h1><i class="fas fa-chart-line"></i> Dashboard</h1>
+                <p id="dashboardSubtitle">Complete Trip Overview</p>
+            </div>
+            <div class="dashboard-actions">
+                <a href="index.html" class="btn" style="background: white; color: #667eea; text-decoration: none;">
+                    <i class="fas fa-arrow-left"></i> Back to App
+                </a>
+                <button id="refreshDashboard" class="btn" style="background: rgba(255,255,255,0.2); color: white;">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+                <button id="printDashboard" class="btn" style="background: rgba(255,255,255,0.2); color: white;">
+                    <i class="fas fa-print"></i> Print
+                </button>
+            </div>
+        </div>
+
+        <!-- Key Statistics -->
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-label">TOTAL DISTANCE</div>
+                        <div class="stat-value" id="statTotalKm">0 km</div>
+                    </div>
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                        <i class="fas fa-road"></i>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-label">DIESEL COST</div>
+                        <div class="stat-value" id="statDieselCost">₹0</div>
+                    </div>
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white;">
+                        <i class="fas fa-rupee-sign"></i>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-label">TOTAL CONTRIBUTIONS</div>
+                        <div class="stat-value" id="statContributions">₹0</div>
+                    </div>
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); color: white;">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-label">TOTAL EXPENSES</div>
+                        <div class="stat-value" id="statExpenses">₹0</div>
+                    </div>
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: white;">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-label">BALANCE</div>
+                        <div class="stat-value" id="statBalance">₹0</div>
+                    </div>
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white;">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-label">FAMILY MEMBERS</div>
+                        <div class="stat-value" id="statMembers">0</div>
+                    </div>
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); color: white;">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Driver Information -->
+        <div class="info-card">
+            <h3><i class="fas fa-user-tie"></i> Driver Information</h3>
+            <div id="driverInfo" class="info-grid"></div>
+        </div>
+
+        <!-- Route Information -->
+        <div class="info-card">
+            <h3><i class="fas fa-route"></i> Route Information</h3>
+            <div id="routeInfo" class="info-grid"></div>
+        </div>
+
+        <!-- Family Members Contributions -->
+        <div class="info-card">
+            <h3><i class="fas fa-users"></i> Family Members & Contributions</h3>
+            <div id="membersInfo" class="member-list"></div>
+        </div>
+
+        <!-- Expense Breakdown Chart -->
+        <div class="chart-container">
+            <h3><i class="fas fa-chart-bar"></i> Expense Breakdown by Category</h3>
+            <div id="expenseChart"></div>
+        </div>
+
+        <!-- Fuel & Diesel Records -->
+        <div class="info-card">
+            <h3><i class="fas fa-gas-pump"></i> Fuel & Diesel History</h3>
+            <div id="dieselRecords"></div>
+        </div>
+
+        <!-- Location Statistics -->
+        <div class="info-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Location & Stops</h3>
+            <div id="locationStats" class="info-grid"></div>
+        </div>
+    </div>
+
+    <script>
+        let tourData = {};
+
+        // Load data from localStorage
+        function loadData() {
+            const savedData = localStorage.getItem('tourManagementData');
+            if (savedData) {
+                tourData = JSON.parse(savedData);
+            }
+            updateDashboard();
+        }
+
+        // Calculate distance between two coordinates using Haversine formula
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371;
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = 
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
+        }
+
+        // Calculate total distance from location history
+        function calculateTotalDistance() {
+            if (!tourData.locationHistory || tourData.locationHistory.length < 2) return 0;
+            
+            let totalDistance = 0;
+            for (let i = 0; i < tourData.locationHistory.length - 1; i++) {
+                const loc1 = tourData.locationHistory[i];
+                const loc2 = tourData.locationHistory[i + 1];
+                totalDistance += calculateDistance(loc1.lat, loc1.lng, loc2.lat, loc2.lng);
+            }
+            return totalDistance;
+        }
+
+        // Update all dashboard components
+        function updateDashboard() {
+            updateStatistics();
+            updateDriverInfo();
+            updateRouteInfo();
+            updateMembersInfo();
+            updateExpenseChart();
+            updateDieselRecords();
+            updateLocationStats();
+        }
+
+        // Update key statistics
+        function updateStatistics() {
+            // Total distance
+            const totalDistance = calculateTotalDistance();
+            document.getElementById('statTotalKm').textContent = totalDistance.toFixed(2) + ' km';
+
+            // Diesel cost statistics
+            const dieselRecords = tourData.dieselRecords || [];
+            const totalDieselCost = dieselRecords.reduce((sum, r) => sum + r.cost, 0);
+            
+            document.getElementById('statDieselCost').textContent = '₹' + totalDieselCost.toFixed(2);
+
+            // Financial statistics
+            const contributions = tourData.contributions || [];
+            const expenses = tourData.expenses || [];
+            const totalContributions = contributions.reduce((sum, c) => sum + c.amount, 0);
+            const totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
+            const balance = totalContributions - totalExpenses;
+
+            document.getElementById('statContributions').textContent = '₹' + totalContributions.toFixed(2);
+            document.getElementById('statExpenses').textContent = '₹' + totalExpenses.toFixed(2);
+            document.getElementById('statBalance').textContent = '₹' + balance.toFixed(2);
+
+            // Family members
+            const members = tourData.familyMembers || [];
+            document.getElementById('statMembers').textContent = members.filter(m => m.name).length;
+
+            // Update subtitle
+            if (tourData.route && tourData.route.start) {
+                document.getElementById('dashboardSubtitle').textContent = 
+                    `${tourData.route.start} → ${tourData.route.end || 'Destination'}`;
+            }
+        }
+
+        // Update driver information
+        function updateDriverInfo() {
+            const driver = tourData.driver || {};
+            const container = document.getElementById('driverInfo');
+            
+            if (!driver.name) {
+                container.innerHTML = '<p style="color: #6b7280;">No driver information available</p>';
+                return;
+            }
+
+            // Check if driver has an image
+            const hasImage = driver.imageUrl && driver.imageUrl.trim() !== '';
+            const imageSection = hasImage ? `
+                <div class="info-item driver-image-section">
+                    <div class="info-label">Driver Photo</div>
+                    <div class="info-value">
+                        <div class="driver-image-container">
+                            <img src="${driver.imageUrl}" alt="Driver Photo" class="driver-thumbnail" onclick="viewDriverImage('${driver.imageUrl}')">
+                            <button class="view-image-btn" onclick="viewDriverImage('${driver.imageUrl}')" title="View Full Size">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="image-actions">
+                            <button class="btn btn-sm btn-primary" onclick="viewDriverImage('${driver.imageUrl}')">
+                                <i class="fas fa-eye"></i> View Image
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            ` : `
+                <div class="info-item">
+                    <div class="info-label">Driver Photo</div>
+                    <div class="info-value">
+                        <div class="no-image-placeholder">
+                            <i class="fas fa-user-circle"></i>
+                            <span>No photo available</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = `
+                <div class="info-item">
+                    <div class="info-label">Driver Name</div>
+                    <div class="info-value">${driver.name || 'N/A'}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Mobile Number</div>
+                    <div class="info-value">${driver.mobile || 'N/A'}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Car Number</div>
+                    <div class="info-value">${driver.carNumber || 'N/A'}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Current KM</div>
+                    <div class="info-value">${driver.currentKm ? driver.currentKm.toFixed(1) + ' km' : 'N/A'}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Diesel Available</div>
+                    <div class="info-value">${driver.dieselAvailable ? driver.dieselAvailable.toFixed(1) + ' L' : 'N/A'}</div>
+                </div>
+                ${imageSection}
+            `;
+        }
+
+        // Update route information
+        function updateRouteInfo() {
+            const route = tourData.route || {};
+            const stops = tourData.stops || [];
+            const container = document.getElementById('routeInfo');
+            
+            if (!route.start) {
+                container.innerHTML = '<p style="color: #6b7280;">No route information available</p>';
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="info-item">
+                    <div class="info-label">Starting Point</div>
+                    <div class="info-value">${route.start || 'N/A'}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Destination</div>
+                    <div class="info-value">${route.end || 'N/A'}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Start Date</div>
+                    <div class="info-value">${route.startDate || 'N/A'}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">End Date</div>
+                    <div class="info-value">${route.endDate || 'N/A'}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Total Stops</div>
+                    <div class="info-value">${stops.length}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Location Points</div>
+                    <div class="info-value">${(tourData.locationHistory || []).length}</div>
+                </div>
+            `;
+        }
+
+        // Update family members and contributions
+        function updateMembersInfo() {
+            const members = tourData.familyMembers || [];
+            const contributions = tourData.contributions || [];
+            const container = document.getElementById('membersInfo');
+            
+            if (members.filter(m => m.name).length === 0) {
+                container.innerHTML = '<p style="color: #6b7280;">No family members added</p>';
+                return;
+            }
+
+            // Calculate contributions by member
+            const memberContributions = {};
+            contributions.forEach(c => {
+                if (!memberContributions[c.member]) {
+                    memberContributions[c.member] = 0;
+                }
+                memberContributions[c.member] += c.amount;
+            });
+
+            let html = '';
+            members.forEach(member => {
+                if (member.name) {
+                    const contribution = memberContributions[member.name] || 0;
+                    html += `
+                        <div class="member-card">
+                            <div class="member-name">${member.name}</div>
+                            <div style="font-size: 12px; opacity: 0.9;">${member.relation || 'Member'}</div>
+                            <div class="member-contribution">₹${contribution.toFixed(2)}</div>
+                            <div style="font-size: 12px; opacity: 0.9;">Contributed</div>
+                        </div>
+                    `;
+                }
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Update member contact list (detailed table view)
+        function updateMemberContactList() {
+            const members = tourData.familyMembers || [];
+            const container = document.getElementById('memberContactList');
+            
+            if (members.filter(m => m.name).length === 0) {
+                container.innerHTML = '<p style="color: #6b7280;">No family members added</p>';
+                return;
+            }
+
+            let html = `
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                                <th style="padding: 12px; text-align: left; border: 1px solid #e5e7eb;">#</th>
+                                <th style="padding: 12px; text-align: left; border: 1px solid #e5e7eb;">Name</th>
+                                <th style="padding: 12px; text-align: left; border: 1px solid #e5e7eb;">Mobile Number</th>
+                                <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            members.forEach((member, index) => {
+                if (member.name) {
+                    const rowBg = index % 2 === 0 ? '#f9fafb' : 'white';
+                    html += `
+                        <tr style="background: ${rowBg};">
+                            <td style="padding: 12px; border: 1px solid #e5e7eb; font-weight: bold; color: #667eea;">${index + 1}</td>
+                            <td style="padding: 12px; border: 1px solid #e5e7eb;">
+                                <div style="font-weight: 600; color: #1f2937;">${member.name}</div>
+                            </td>
+                            <td style="padding: 12px; border: 1px solid #e5e7eb;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-phone" style="color: #10b981;"></i>
+                                    <span style="font-family: monospace; font-size: 14px;">${member.mobile || 'Not provided'}</span>
+                                </div>
+                            </td>
+                            <td style="padding: 12px; border: 1px solid #e5e7eb; text-align: center;">
+                                <span style="background: #10b981; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600;">
+                                    ✓ Active
+                                </span>
+                            </td>
+                        </tr>
+                    `;
+                }
+            });
+
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin-top: 15px; padding: 15px; background: #f0f9ff; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                    <strong style="color: #1f2937;">📱 Total Members: ${members.filter(m => m.name).length}</strong>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        // Update expense chart
+        function updateExpenseChart() {
+            const expenses = tourData.expenses || [];
+            const dieselRecords = tourData.dieselRecords || [];
+            const container = document.getElementById('expenseChart');
+            
+            if (expenses.length === 0 && dieselRecords.length === 0) {
+                container.innerHTML = '<p style="color: #6b7280;">No expenses recorded</p>';
+                return;
+            }
+
+            // Calculate expenses by category
+            const categoryExpenses = {};
+            
+            // Process regular expenses
+            expenses.forEach(e => {
+                if (!categoryExpenses[e.category]) {
+                    categoryExpenses[e.category] = 0;
+                }
+                categoryExpenses[e.category] += e.amount;
+            });
+
+            // Process fuel-related expenses from diesel records
+            dieselRecords.forEach(record => {
+                // Add fuel refill cost
+                if (!categoryExpenses['Fuel Refill']) {
+                    categoryExpenses['Fuel Refill'] = 0;
+                }
+                categoryExpenses['Fuel Refill'] += record.cost;
+            });
+
+            // Handle fuel expenses from regular expenses
+            const fuelExpenses = expenses.filter(e => 
+                e.category.toLowerCase().includes('fuel') || 
+                e.category.toLowerCase().includes('diesel') ||
+                e.category.toLowerCase().includes('petrol')
+            );
+
+            fuelExpenses.forEach(expense => {
+                // Update fuel refill category if it exists, otherwise create it
+                if (!categoryExpenses['Fuel Refill']) {
+                    categoryExpenses['Fuel Refill'] = 0;
+                }
+                categoryExpenses['Fuel Refill'] += expense.amount;
+                
+                // Remove the original fuel expense to avoid double counting
+                categoryExpenses[expense.category] -= expense.amount;
+                if (categoryExpenses[expense.category] <= 0) {
+                    delete categoryExpenses[expense.category];
+                }
+            });
+
+            const totalExpenses = Object.values(categoryExpenses).reduce((sum, val) => sum + val, 0);
+            const maxExpense = Math.max(...Object.values(categoryExpenses));
+
+            let html = '';
+            Object.keys(categoryExpenses).sort((a, b) => categoryExpenses[b] - categoryExpenses[a]).forEach(category => {
+                const amount = categoryExpenses[category];
+                if (amount <= 0) return; // Skip zero or negative amounts
+                
+                const percentage = (amount / totalExpenses * 100).toFixed(1);
+                const width = (amount / maxExpense * 100).toFixed(1);
+                
+                // Different colors for different categories
+                let barColor = 'linear-gradient(90deg, #667eea 0%, #764ba2 100%)';
+                if (category.toLowerCase().includes('fuel') || category.toLowerCase().includes('refill')) {
+                    barColor = 'linear-gradient(90deg, #f59e0b 0%, #d97706 100%)';
+                } else if (category.toLowerCase().includes('food')) {
+                    barColor = 'linear-gradient(90deg, #10b981 0%, #059669 100%)';
+                } else if (category.toLowerCase().includes('accommodation') || category.toLowerCase().includes('hotel')) {
+                    barColor = 'linear-gradient(90deg, #8b5cf6 0%, #7c3aed 100%)';
+                } else if (category.toLowerCase().includes('transport')) {
+                    barColor = 'linear-gradient(90deg, #06b6d4 0%, #0891b2 100%)';
+                }
+                
+                html += `
+                    <div class="expense-bar">
+                        <div class="expense-bar-header">
+                            <span class="expense-bar-label">${category}</span>
+                            <span class="expense-bar-value">₹${amount.toFixed(2)} (${percentage}%)</span>
+                        </div>
+                        <div class="expense-bar-fill" style="width: ${width}%; background: ${barColor};"></div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Update diesel records
+        function updateDieselRecords() {
+            const records = tourData.dieselRecords || [];
+            const expenses = tourData.expenses || [];
+            const container = document.getElementById('dieselRecords');
+            
+            // Combine diesel records and fuel expenses
+            const allFuelRecords = [];
+            
+            // Add diesel records
+            records.forEach(record => {
+                allFuelRecords.push({
+                    type: 'diesel_record',
+                    date: record.date,
+                    description: `Diesel refill - ${record.amount.toFixed(2)}L`,
+                    amount: record.amount,
+                    cost: record.cost,
+                    km: record.km,
+                    pricePerLiter: record.cost / record.amount
+                });
+            });
+            
+            // Add fuel expenses from expenses section
+            const fuelExpenses = expenses.filter(e => 
+                e.category.toLowerCase().includes('fuel') || 
+                e.category.toLowerCase().includes('diesel') ||
+                e.category.toLowerCase().includes('petrol') ||
+                e.category.toLowerCase().includes('refill')
+            );
+            
+            fuelExpenses.forEach(expense => {
+                allFuelRecords.push({
+                    type: 'expense',
+                    date: expense.date,
+                    description: expense.description || `${expense.category} expense`,
+                    amount: 0, // No quantity for manual expenses
+                    cost: expense.amount,
+                    km: null,
+                    pricePerLiter: null
+                });
+            });
+            
+            if (allFuelRecords.length === 0) {
+                container.innerHTML = '<p style="color: #6b7280;">No fuel/diesel records</p>';
+                return;
+            }
+
+            // Sort by date (newest first)
+            allFuelRecords.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            let html = '';
+            allFuelRecords.forEach(record => {
+                if (record.type === 'diesel_record') {
+                    html += `
+                        <div class="diesel-record">
+                            <div class="diesel-record-header">
+                                <span class="record-type diesel-type">⛽ Diesel Refill</span>
+                                <span class="record-date">${new Date(record.date).toLocaleDateString()}</span>
+                            </div>
+                            <div class="diesel-record-grid">
+                                <div class="info-item">
+                                    <div class="info-label">KM Reading</div>
+                                    <div class="info-value">${record.km} km</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Quantity</div>
+                                    <div class="info-value">${record.amount.toFixed(2)} L</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Cost</div>
+                                    <div class="info-value">₹${record.cost.toFixed(2)}</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Price/Liter</div>
+                                    <div class="info-value">₹${record.pricePerLiter.toFixed(2)}/L</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div class="diesel-record fuel-expense-record">
+                            <div class="diesel-record-header">
+                                <span class="record-type fuel-type">🛢️ Fuel Expense</span>
+                                <span class="record-date">${new Date(record.date).toLocaleDateString()}</span>
+                            </div>
+                            <div class="diesel-record-grid">
+                                <div class="info-item">
+                                    <div class="info-label">Description</div>
+                                    <div class="info-value">${record.description}</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Cost</div>
+                                    <div class="info-value">₹${record.cost.toFixed(2)}</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Type</div>
+                                    <div class="info-value">Manual Entry</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Update location statistics
+        function updateLocationStats() {
+            const locationHistory = tourData.locationHistory || [];
+            const stops = tourData.stops || [];
+            const container = document.getElementById('locationStats');
+            
+            const totalDistance = calculateTotalDistance();
+            
+            container.innerHTML = `
+                <div class="info-item">
+                    <div class="info-label">GPS Points Recorded</div>
+                    <div class="info-value">${locationHistory.length}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Planned Stops</div>
+                    <div class="info-value">${stops.length}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Total Distance Tracked</div>
+                    <div class="info-value">${totalDistance.toFixed(2)} km</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">First Point</div>
+                    <div class="info-value">${locationHistory.length > 0 ? new Date(locationHistory[0].timestamp).toLocaleString() : 'N/A'}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Last Point</div>
+                    <div class="info-value">${locationHistory.length > 0 ? new Date(locationHistory[locationHistory.length - 1].timestamp).toLocaleString() : 'N/A'}</div>
+                </div>
+            `;
+        }
+
+        // Event listeners
+        document.getElementById('refreshDashboard').addEventListener('click', function() {
+            loadData();
+            alert('Dashboard refreshed!');
+        });
+
+        document.getElementById('printDashboard').addEventListener('click', function() {
+            window.print();
+        });
+
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', loadData);
+
+        // Driver Image Viewing Functions
+        function viewDriverImage(imageUrl) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            
+            modalImage.src = imageUrl;
+            modal.style.display = 'flex';
+            
+            // Prevent body scroll when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+            
+            // Restore body scroll
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside the image
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImageModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeImageModal();
+            }
+        });
+    </script>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="image-modal">
+        <div class="image-modal-content">
+            <img id="modalImage" src="" alt="Driver Image">
+            <button class="image-modal-close" onclick="closeImageModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+

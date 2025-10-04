@@ -1,0 +1,95 @@
+================================================================================
+              GOOGLE MAPS API CONFIGURATION GUIDE
+================================================================================
+
+WHERE TO CONFIGURE:
+------------------
+Open: index.html
+Find line (near the bottom): 
+  src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap"
+
+Replace: YOUR_GOOGLE_MAPS_API_KEY
+With: Your actual Google Maps API Key
+
+
+HOW TO GET GOOGLE MAPS API KEY:
+--------------------------------
+
+1. GO TO GOOGLE CLOUD CONSOLE
+   https://console.cloud.google.com/
+
+2. CREATE OR SELECT A PROJECT
+   - Click on the project dropdown at the top
+   - Click "New Project"
+   - Enter project name (e.g., "Tour Management")
+   - Click "Create"
+
+3. ENABLE REQUIRED APIs
+   - Go to "APIs & Services" > "Library"
+   - Search for "Maps JavaScript API"
+   - Click on it and click "Enable"
+   - Also enable "Geolocation API" (optional but recommended)
+
+4. CREATE API KEY
+   - Go to "APIs & Services" > "Credentials"
+   - Click "Create Credentials" > "API Key"
+   - Copy the generated API key
+
+5. (OPTIONAL) RESTRICT YOUR API KEY
+   - Click on your API key name
+   - Under "Application restrictions":
+     * Choose "HTTP referrers"
+     * Add your website URL (or localhost for testing)
+   - Under "API restrictions":
+     * Select "Restrict key"
+     * Choose "Maps JavaScript API" and "Geolocation API"
+   - Click "Save"
+
+6. UPDATE index.html
+   - Open index.html in a text editor
+   - Find the Google Maps script tag (near line 464)
+   - Replace YOUR_GOOGLE_MAPS_API_KEY with your actual key
+   - Save the file
+
+EXAMPLE:
+--------
+BEFORE:
+src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap"
+
+AFTER:
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&callback=initMap"
+
+
+TESTING WITHOUT API KEY:
+------------------------
+The application will still work without a Google Maps API key, but:
+- Map will not display
+- Live location tracking will still work
+- Location history will still be recorded
+- You can add the API key later
+
+
+IMPORTANT NOTES:
+----------------
+✓ Keep your API key private
+✓ Don't share it publicly or commit to public repositories
+✓ Use API restrictions for security
+✓ Google Maps API has a free tier (most personal use is free)
+✓ Monitor your usage in Google Cloud Console
+
+
+TROUBLESHOOTING:
+----------------
+Issue: Map shows "For development purposes only"
+Fix: Your API key might not be fully activated yet. Wait a few minutes.
+
+Issue: Map doesn't load at all
+Fix: Check browser console (F12) for error messages
+     Verify API key is correct
+     Ensure Maps JavaScript API is enabled
+
+Issue: "This API project is not authorized"
+Fix: Make sure Maps JavaScript API is enabled for your project
+
+================================================================================
+

@@ -1,0 +1,464 @@
+================================================================================
+                🗑️ CLEAR LOCATION HISTORY - USER GUIDE
+                        Tour Management System
+================================================================================
+
+✨ NEW FEATURE: CLEAR LOCATION HISTORY POINTS
+================================================================================
+
+You now have TWO buttons to manage your location history:
+
+1. 🗑️ "Clear All Location History" (Red button)
+   → Deletes ALL recorded GPS points permanently
+
+2. ↩️ "Remove Last Point" (Orange button)
+   → Removes only the most recent GPS point (undo last)
+
+================================================================================
+
+📍 WHERE TO FIND THESE BUTTONS:
+================================================================================
+
+Location: "Live Location" tab → "Location History" section
+
+You'll see:
+┌─────────────────────────────────────────────────────────┐
+│ 📜 Location History                                     │
+│                                                         │
+│ [🗑️ Clear All Location History] [↩️ Remove Last Point] │
+│                                                         │
+│ Journey Summary...                                      │
+│ Point 1, Point 2, Point 3...                           │
+└─────────────────────────────────────────────────────────┘
+
+================================================================================
+
+🗑️ BUTTON 1: CLEAR ALL LOCATION HISTORY
+================================================================================
+
+PURPOSE:
+────────
+Deletes ALL recorded GPS location points from your trip.
+
+USE WHEN:
+────────
+✓ Starting a completely new trip
+✓ Want to clear old tracking data
+✓ Starting fresh after testing
+✓ Finished trip and want clean slate
+✓ Made mistakes and want to re-track
+
+WHAT IT CLEARS:
+──────────────
+✗ All GPS location points
+✗ All timestamps
+✗ Blue path line on map
+✗ Blue dot markers on map
+✗ Journey summary
+✗ Total distance traveled
+✗ Current location info
+
+WHAT IT KEEPS:
+─────────────
+✓ Route (START, stops, END) - Not affected
+✓ Driver information
+✓ Family members
+✓ Diesel records
+✓ Expenses
+✓ Contributions
+
+HOW TO USE:
+──────────
+Step 1: Go to "Live Location" tab
+Step 2: Scroll to "Location History" section
+Step 3: Click red "Clear All Location History" button
+Step 4: Confirmation dialog appears:
+
+   ⚠️ Are you sure you want to clear ALL location history?
+   
+   This will delete:
+   • All recorded GPS points
+   • Location tracking data
+   • Travel path on map
+   
+   This action cannot be undone!
+   
+   [Cancel] [OK]
+
+Step 5: Click OK to confirm (or Cancel to abort)
+Step 6: Success message: "✅ All location history has been cleared!"
+
+RESULT:
+───────
+✓ Location history list shows "No location history yet"
+✓ Blue path line removed from map
+✓ Blue dot markers removed from map
+✓ Journey summary disappears
+✓ Current location info cleared
+✓ Total distance shows 0 km
+✓ "Open in Maps" button disabled
+
+================================================================================
+
+↩️ BUTTON 2: REMOVE LAST POINT
+================================================================================
+
+PURPOSE:
+────────
+Removes ONLY the most recent GPS point (undo last recorded point).
+
+USE WHEN:
+────────
+✓ Accidentally recorded wrong location
+✓ GPS point was inaccurate
+✓ Want to remove last point only
+✓ Made a mistake in tracking
+✓ Need to undo without clearing everything
+
+WHAT IT REMOVES:
+───────────────
+✗ Most recent GPS point only
+✗ Last timestamp
+✗ Last blue dot marker on map
+✗ Last segment of blue path
+
+WHAT IT KEEPS:
+─────────────
+✓ All other GPS points before the last one
+✓ Rest of the journey
+✓ All other markers
+✓ Route information
+✓ All other data
+
+HOW TO USE:
+──────────
+Step 1: Go to "Live Location" tab
+Step 2: Scroll to "Location History" section
+Step 3: Click orange "Remove Last Point" button
+Step 4: Confirmation dialog:
+
+   Remove the most recent location point?
+   
+   [Cancel] [OK]
+
+Step 5: Click OK to confirm
+Step 6: Success message: "✅ Last location point removed!"
+
+RESULT:
+───────
+✓ Last point removed from history
+✓ Last blue dot removed from map
+✓ Blue path shortened
+✓ Total distance recalculated
+✓ Journey summary updated
+✓ Point count decreased by 1
+
+SPECIAL CASES:
+─────────────
+• If no points exist: Shows "No location points to remove!"
+• If last point removed: Can click again to remove previous point
+• Can use multiple times to remove several recent points
+
+================================================================================
+
+📊 COMPARISON: WHICH BUTTON TO USE?
+================================================================================
+
+SCENARIO 1: Wrong Last Point
+────────────────────────────
+Problem: Just recorded a point with bad GPS signal
+Solution: Click "Remove Last Point" ↩️
+Result: Only that point removed, rest of journey intact
+
+SCENARIO 2: Start New Trip
+──────────────────────────
+Problem: Want to track a new trip, clear old data
+Solution: Click "Clear All Location History" 🗑️
+Result: All old points removed, fresh start
+
+SCENARIO 3: Testing Features
+────────────────────────────
+Problem: Been testing location tracking, have random points
+Solution: Click "Clear All Location History" 🗑️
+Result: All test data removed
+
+SCENARIO 4: Last 3 Points Wrong
+───────────────────────────────
+Problem: GPS was inaccurate for last 3 points
+Solution: Click "Remove Last Point" ↩️ three times
+Result: Last 3 points removed one by one
+
+SCENARIO 5: Finished Trip
+─────────────────────────
+Problem: Trip completed, want clean slate for next trip
+Solution: Click "Clear All Location History" 🗑️
+Result: Ready for new trip tracking
+
+================================================================================
+
+🎯 STEP-BY-STEP EXAMPLES:
+================================================================================
+
+EXAMPLE 1: Clear All and Start Fresh
+────────────────────────────────────
+
+Current Status:
+• 50 location points recorded
+• 125 km tracked
+• Blue path across map
+
+Action:
+1. Click "Clear All Location History" 🗑️
+2. Confirm: Click OK
+
+Result:
+• 0 location points
+• 0 km tracked
+• No blue path on map
+• Empty history list
+• Ready for new tracking
+
+EXAMPLE 2: Remove Last Point
+────────────────────────────
+
+Current Status:
+• 10 location points
+• Last point at wrong location (GPS glitch)
+
+Before:
+Point 1, Point 2, ... Point 9, Point 10 ← (wrong!)
+
+Action:
+1. Click "Remove Last Point" ↩️
+2. Confirm: Click OK
+
+After:
+Point 1, Point 2, ... Point 9
+
+Result:
+• 9 location points
+• Point 10 removed
+• Distance recalculated
+• Map updated
+
+EXAMPLE 3: Remove Multiple Points
+─────────────────────────────────
+
+Current Status:
+• 15 points, last 3 are inaccurate
+
+Action:
+1. Click "Remove Last Point" ↩️ → Point 15 removed
+2. Click "Remove Last Point" ↩️ → Point 14 removed
+3. Click "Remove Last Point" ↩️ → Point 13 removed
+
+Result:
+• 12 points remain
+• All accurate points kept
+• Inaccurate points removed
+
+================================================================================
+
+⚠️ IMPORTANT WARNINGS:
+================================================================================
+
+WARNING 1: Clear All is Permanent
+─────────────────────────────────
+✗ Cannot undo after confirming
+✗ All location data deleted
+✗ Not recoverable from app
+✓ Export data first if you want backup
+
+WARNING 2: Doesn't Affect Route
+──────────────────────────────
+• Clearing location history does NOT clear:
+  - Your planned route (START/STOPS/END)
+  - Green route markers on map
+  - Route distance calculations
+• Only clears GPS tracking data (blue path)
+
+WARNING 3: Export Before Clearing
+─────────────────────────────────
+Recommendation:
+1. Go to "Live Location" tab
+2. Click "Export Route Data" first
+3. Save the JSON file
+4. Then clear history
+5. You'll have backup if needed
+
+WARNING 4: Stop Tracking First
+──────────────────────────────
+If currently tracking:
+1. Click "Stop Tracking" first
+2. Then clear history
+3. Prevents new points being added after clear
+
+================================================================================
+
+💡 BEST PRACTICES:
+================================================================================
+
+PRACTICE 1: Export Before Major Clear
+─────────────────────────────────────
+Before clearing all:
+✓ Click "Export Route Data"
+✓ Save the JSON file with date
+✓ Keep as backup/record
+✓ Then proceed to clear
+
+PRACTICE 2: Use Remove Last Point for Small Fixes
+─────────────────────────────────────────────────
+For individual mistakes:
+✓ Use "Remove Last Point" ↩️
+✓ Don't clear entire history
+✓ Faster and safer
+✓ Keeps good data
+
+PRACTICE 3: Clear All Between Trips
+───────────────────────────────────
+At end of trip:
+✓ Export route data for records
+✓ Clear all location history
+✓ Keep route/stops for reference
+✓ Start next trip with clean slate
+
+PRACTICE 4: Regular Cleanup
+───────────────────────────
+If doing multiple short trips:
+✓ Clear history after each trip
+✓ Export each trip separately
+✓ Keep only current trip data
+✓ Prevents confusion
+
+================================================================================
+
+🔄 WORKFLOW EXAMPLES:
+================================================================================
+
+WORKFLOW 1: Single Long Trip
+────────────────────────────
+Day 1: Start tracking → Record points → Stop tracking
+Day 2: Continue tracking → More points → Stop tracking
+Day 3: Final day → Stop tracking → Export data
+End: Clear all history → Ready for next trip
+
+WORKFLOW 2: Multiple Short Trips
+────────────────────────────────
+Trip 1: Track → Export → Clear all → Done
+Trip 2: Track → Export → Clear all → Done
+Trip 3: Track → Export → Clear all → Done
+
+WORKFLOW 3: Testing & Live Use
+──────────────────────────────
+Testing: Add points → Clear all → Test again
+Live: Add points → Keep data → Export at end
+
+================================================================================
+
+🔧 TROUBLESHOOTING:
+================================================================================
+
+ISSUE: Button doesn't work
+SOLUTION:
+✓ Refresh page (Ctrl+R)
+✓ Make sure on "Live Location" tab
+✓ Check browser console (F12) for errors
+
+ISSUE: Cleared by accident
+SOLUTION:
+✗ Cannot undo from app
+✓ If exported before: Import the JSON file
+✓ Otherwise: Data is lost
+
+ISSUE: "Remove Last Point" removes wrong point
+SOLUTION:
+✓ It removes the most recent (latest timestamp)
+✓ Check journey summary to see order
+✓ Points are ordered by time, not map position
+
+ISSUE: Cleared history but route still shows
+SOLUTION:
+✓ This is correct behavior
+✓ Route (green line) is separate from history (blue line)
+✓ Use "Clear Route" to remove green line
+✓ Use "Clear History" to remove blue line
+
+ISSUE: Want to clear some points in middle
+SOLUTION:
+✗ Cannot selectively clear middle points
+✓ Can only remove from end (last point)
+✓ Or clear all and re-track
+
+================================================================================
+
+📋 QUICK REFERENCE:
+================================================================================
+
+CLEAR ALL LOCATION HISTORY:
+──────────────────────────
+Button: Red "Clear All Location History"
+Action: Deletes ALL GPS points
+Warning: Cannot undo
+Use for: New trips, starting fresh
+Keeps: Route, stops, other data
+
+REMOVE LAST POINT:
+─────────────────
+Button: Orange "Remove Last Point"
+Action: Removes most recent point only
+Warning: Can be repeated
+Use for: Fixing mistakes, undo last
+Keeps: All other points
+
+KEYBOARD SHORTCUTS:
+──────────────────
+None - Must click buttons
+
+EXPORT BEFORE CLEAR:
+───────────────────
+1. Click "Export Route Data"
+2. Save JSON file
+3. Then clear safely
+
+RESTORE AFTER CLEAR:
+───────────────────
+1. Cannot undo from app
+2. Must re-import JSON if exported
+3. Or re-track the journey
+
+================================================================================
+
+✅ SUMMARY:
+================================================================================
+
+You now have full control over your location history:
+
+✓ Clear All → Complete fresh start (all points deleted)
+✓ Remove Last → Undo most recent point (one at a time)
+✓ Safe with confirmation dialogs
+✓ Visual feedback on map
+✓ Updated displays automatically
+✓ Export before clearing (recommended)
+
+BUTTONS LOCATION:
+Live Location tab → Location History section → Top of list
+
+USE WISELY:
+• Clear All = Permanent deletion
+• Remove Last = Safe undo
+• Export first = Best practice
+• Both buttons confirm before acting
+
+================================================================================
+
+🎉 ENJOY CLEAN LOCATION HISTORY MANAGEMENT!
+
+Now you can:
+• Start new trips with clean data
+• Remove GPS errors easily
+• Keep only accurate points
+• Manage your tracking history
+• Export before clearing for safety
+
+================================================================================
+

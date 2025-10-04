@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Members - Tour Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .page-title h1 {
+            color: white;
+            margin-bottom: 5px;
+        }
+        
+        .page-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .stats-banner {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .stat-box i {
+            font-size: 32px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-box h3 {
+            font-size: 28px;
+            margin: 10px 0 5px 0;
+            color: #1f2937;
+        }
+        
+        .stat-box p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+        
+        .member-list-view {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .member-list-view h3 {
+            margin-bottom: 20px;
+            color: #1f2937;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        .member-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #f9fafb;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .member-row:hover {
+            background: #f3f4f6;
+            transform: translateX(5px);
+            transition: all 0.3s ease;
+        }
+        
+        .member-info {
+            flex: 1;
+        }
+        
+        .member-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 5px;
+        }
+        
+        .member-mobile {
+            color: #6b7280;
+            font-family: monospace;
+        }
+        
+        .member-badge {
+            background: #10b981;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6b7280;
+        }
+        
+        .empty-state i {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+        
+        .empty-state h3 {
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="page-title">
+                <h1><i class="fas fa-users"></i> Family Members Management</h1>
+                <p>Add and manage your travel group members</p>
+            </div>
+            <div class="page-actions">
+                <a href="index.html" class="btn" style="background: white; color: #667eea; text-decoration: none;">
+                    <i class="fas fa-home"></i> Back to Home
+                </a>
+                <a href="dashboard.html" class="btn" style="background: rgba(255,255,255,0.2); color: white; text-decoration: none;">
+                    <i class="fas fa-chart-line"></i> Dashboard
+                </a>
+            </div>
+        </div>
+
+        <!-- Statistics Banner -->
+        <div class="stats-banner">
+            <div class="stat-box">
+                <i class="fas fa-users"></i>
+                <h3 id="totalMembersCount">0</h3>
+                <p>Total Members</p>
+            </div>
+            <div class="stat-box">
+                <i class="fas fa-hand-holding-usd"></i>
+                <h3 id="totalContributionsAmount">₹0</h3>
+                <p>Total Contributions</p>
+            </div>
+            <div class="stat-box">
+                <i class="fas fa-check-circle"></i>
+                <h3 id="membersWithContributions">0</h3>
+                <p>Members Contributed</p>
+            </div>
+        </div>
+
+        <!-- Current Members List -->
+        <div class="member-list-view" id="currentMembersList" style="display: none;">
+            <h3><i class="fas fa-list"></i> Current Members</h3>
+            <div id="memberListContainer"></div>
+        </div>
+
+        <!-- Add/Edit Members Section -->
+        <div class="card">
+            <div id="memberCountSection">
+                <div class="form-group" style="max-width: 400px; margin: 0 auto;">
+                    <label for="memberCount" style="font-size: 18px; font-weight: bold; text-align: center; display: block; margin-bottom: 15px;">
+                        <i class="fas fa-users"></i> How many family members are traveling?
+                    </label>
+                    <input type="number" id="memberCount" min="1" max="50" placeholder="Enter number of members" 
+                           style="font-size: 18px; text-align: center; padding: 15px;">
+                    <button type="button" id="generateMemberForms" class="btn btn-primary" style="width: 100%; margin-top: 15px; font-size: 16px;">
+                        <i class="fas fa-arrow-right"></i> Continue
+                    </button>
+                </div>
+            </div>
+            
+            <form id="familyForm" style="display: none;">
+                <div class="section-header" style="margin-bottom: 20px;">
+                    <p style="text-align: center; color: #6b7280;">
+                        Please enter details for <strong id="memberCountDisplay">0</strong> family members
+                    </p>
+                </div>
+                
+                <div id="familyMembersContainer">
+                    <!-- Family members will be dynamically generated -->
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button type="button" id="changeMemberCount" class="btn btn-secondary" style="margin-right: 10px;">
+                        <i class="fas fa-edit"></i> Change Number of Members
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save All Members
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Contribution Section -->
+        <div class="card" id="contributionSection" style="display: none;">
+            <h3><i class="fas fa-hand-holding-usd"></i> Record Contribution</h3>
+            <p style="color: #6b7280; margin-bottom: 20px;">Track financial contributions from family members</p>
+            
+            <form id="contributionForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="contributorSelect">Select Member *</label>
+                        <select id="contributorSelect" required>
+                            <option value="">-- Select Member --</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contributionAmount">Amount (₹) *</label>
+                        <input type="number" id="contributionAmount" step="0.01" min="0" placeholder="0.00" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contributionDate">Date *</label>
+                        <input type="date" id="contributionDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contributionNote">Note (Optional)</label>
+                        <input type="text" id="contributionNote" placeholder="e.g., Advance payment">
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-plus"></i> Add Contribution
+                </button>
+            </form>
+            
+            <div id="contributionSummary" class="summary-cards" style="margin-top: 30px;"></div>
+            <div id="contributionRecords" class="records-list" style="margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    
+    <!-- Supabase Configuration -->
+    <script type="module" src="supabase-config.js"></script>
+    
+    <!-- Family Members Module -->
+    <script src="family-members.js"></script>
+    
+    <!-- Page Script -->
+    <script>
+        // Data Storage
+        let tourData = {
+            driver: {},
+            dieselRecords: [],
+            familyMembers: [],
+            contributions: [],
+            route: {},
+            stops: [],
+            expenses: [],
+            locationHistory: []
+        };
+
+        // Load data
+        async function loadData() {
+            try {
+                if (window.loadFromSupabase) {
+                    const cloudData = await window.loadFromSupabase();
+                    if (cloudData) {
+                        tourData = cloudData;
+                        localStorage.setItem('tourManagementData', JSON.stringify(tourData));
+                        return;
+                    }
+                }
+                
+                const savedData = localStorage.getItem('tourManagementData');
+                if (savedData) {
+                    tourData = JSON.parse(savedData);
+                }
+            } catch (error) {
+                console.error('Error loading data:', error);
+                const savedData = localStorage.getItem('tourManagementData');
+                if (savedData) {
+                    tourData = JSON.parse(savedData);
+                }
+            }
+        }
+
+        // Save data
+        async function saveData() {
+            try {
+                localStorage.setItem('tourManagementData', JSON.stringify(tourData));
+                
+                if (window.saveToSupabase) {
+                    await window.saveToSupabase(tourData);
+                }
+            } catch (error) {
+                console.error('Error saving data:', error);
+            }
+        }
+
+        // Update statistics
+        function updateStatistics() {
+            // Total members
+            const memberCount = tourData.familyMembers.filter(m => m.name).length;
+            document.getElementById('totalMembersCount').textContent = memberCount;
+
+            // Total contributions
+            const totalContributions = tourData.contributions.reduce((sum, c) => sum + c.amount, 0);
+            document.getElementById('totalContributionsAmount').textContent = '₹' + totalContributions.toFixed(2);
+
+            // Members with contributions
+            const membersWithContrib = new Set(tourData.contributions.map(c => c.member)).size;
+            document.getElementById('membersWithContributions').textContent = membersWithContrib;
+        }
+
+        // Display current members list
+        function displayCurrentMembers() {
+            const container = document.getElementById('memberListContainer');
+            const listView = document.getElementById('currentMembersList');
+            
+            if (tourData.familyMembers.filter(m => m.name).length === 0) {
+                listView.style.display = 'none';
+                return;
+            }
+
+            listView.style.display = 'block';
+            
+            let html = '';
+            tourData.familyMembers.forEach((member, index) => {
+                if (member.name) {
+                    html += `
+                        <div class="member-row">
+                            <div class="member-info">
+                                <div class="member-name">
+                                    <i class="fas fa-user"></i> ${member.name}
+                                </div>
+                                <div class="member-mobile">
+                                    <i class="fas fa-phone"></i> ${member.mobile || 'No mobile'}
+                                </div>
+                            </div>
+                            <div class="member-badge">
+                                <i class="fas fa-check"></i> Member ${index + 1}
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Show/hide contribution section
+        function toggleContributionSection() {
+            const contributionSection = document.getElementById('contributionSection');
+            if (tourData.familyMembers.filter(m => m.name).length > 0) {
+                contributionSection.style.display = 'block';
+            } else {
+                contributionSection.style.display = 'none';
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadData();
+            
+            // Initialize family members module
+            if (window.familyMembersModule) {
+                window.familyMembersModule.initFamilyMembers();
+                window.familyMembersModule.populateMemberSelects();
+                window.familyMembersModule.initContributionForm();
+                window.familyMembersModule.displayContributions();
+            }
+            
+            // Update UI
+            updateStatistics();
+            displayCurrentMembers();
+            toggleContributionSection();
+        });
+    </script>
+</body>
+</html>
+

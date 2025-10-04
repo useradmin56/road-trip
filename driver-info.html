@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Information - Tour Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .page-header {
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .page-title h1 {
+            color: white;
+            margin-bottom: 5px;
+        }
+        
+        .page-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .driver-profile-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .driver-image-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 25px;
+        }
+        
+        .driver-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #e5e7eb;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .driver-image:hover {
+            transform: scale(1.05);
+            border-color: #3b82f6;
+            box-shadow: 0 12px 24px rgba(59, 130, 246, 0.3);
+        }
+        
+        .driver-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .info-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #3b82f6;
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            background: #f1f5f9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-card h4 {
+            color: #1e40af;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .info-card p {
+            color: #374151;
+            font-size: 18px;
+            font-weight: 500;
+            margin: 0;
+        }
+        
+        .info-card i {
+            color: #3b82f6;
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-top: 4px solid #3b82f6;
+        }
+        
+        .stat-card i {
+            font-size: 32px;
+            color: #3b82f6;
+            margin-bottom: 10px;
+        }
+        
+        .stat-card h3 {
+            font-size: 28px;
+            margin: 10px 0 5px 0;
+            color: #1f2937;
+        }
+        
+        .stat-card p {
+            color: #6b7280;
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        .no-driver-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #6b7280;
+        }
+        
+        .no-driver-state i {
+            font-size: 80px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+        
+        .no-driver-state h3 {
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-large {
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #f8fafc;
+            color: #374151;
+            border: 2px solid #e5e7eb;
+        }
+        
+        .btn-secondary:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateY(-2px);
+        }
+        
+        .image-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+        }
+        
+        .image-action-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .image-action-btn:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+        
+        .image-action-btn i {
+            font-size: 14px;
+            color: #374151;
+        }
+        
+        .image-action-btn.view i {
+            color: #3b82f6;
+        }
+        
+        .image-action-btn.delete i {
+            color: #ef4444;
+        }
+        
+        .image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        
+        .image-modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .image-modal img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .image-modal-close {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .driver-name {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+        
+        .driver-role {
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="page-title">
+                <h1><i class="fas fa-user-tie"></i> Driver Information</h1>
+                <p>Complete driver profile and vehicle details</p>
+            </div>
+            <div class="page-actions">
+                <a href="index.html" class="btn" style="background: white; color: #1e40af; text-decoration: none;">
+                    <i class="fas fa-home"></i> Back to Home
+                </a>
+                <a href="dashboard.html" class="btn" style="background: rgba(255,255,255,0.2); color: white; text-decoration: none;">
+                    <i class="fas fa-chart-line"></i> Dashboard
+                </a>
+            </div>
+        </div>
+
+        <!-- Driver Profile Section -->
+        <div id="driverProfileSection">
+            <!-- Driver profile will be displayed here -->
+        </div>
+
+        <!-- Edit Driver Form (Hidden by default) -->
+        <div id="editDriverForm" class="card" style="display: none;">
+            <h3><i class="fas fa-edit"></i> Edit Driver Information</h3>
+            <form id="driverEditForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="editDriverName">Driver Name *</label>
+                        <input type="text" id="editDriverName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editDriverMobile">Mobile Number *</label>
+                        <input type="tel" id="editDriverMobile" pattern="[0-9]{10}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editCarNumber">Car Number *</label>
+                        <input type="text" id="editCarNumber" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editCurrentKm">Current Kilometer Reading</label>
+                        <input type="number" id="editCurrentKm" step="0.1" min="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editDieselAvailable">Diesel Available (Liters)</label>
+                        <input type="number" id="editDieselAvailable" step="0.1" min="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editDriverImage">Update Driver Image</label>
+                        <input type="file" id="editDriverImage" accept="image/*" max="5MB">
+                        <small style="color: #6b7280; font-size: 12px;">Upload new photo (JPG, PNG, GIF) - Max 5MB</small>
+                        <div id="editImageUploadStatus" style="margin-top: 10px; display: none;">
+                            <!-- Upload status will be shown here -->
+                        </div>
+                        <div id="editDriverImagePreview" style="margin-top: 15px; display: none;">
+                            <!-- Image preview will be shown here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                    <button type="button" id="cancelEdit" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Image Modal -->
+        <div id="imageModal" class="image-modal">
+            <div class="image-modal-content">
+                <img id="modalImage" src="" alt="Driver Image">
+                <button class="image-modal-close" onclick="closeImageModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    
+    <!-- Cloudinary Configuration -->
+    <script src="cloudinary-config.js"></script>
+    
+    <!-- Supabase Configuration -->
+    <script type="module" src="supabase-config.js"></script>
+    
+    <!-- Driver Info Module -->
+    <script src="driver-info.js"></script>
+    
+    <!-- Page Script -->
+    <script>
+        // Data Storage
+        let tourData = {
+            driver: {},
+            dieselRecords: [],
+            familyMembers: [],
+            contributions: [],
+            route: {},
+            stops: [],
+            expenses: [],
+            locationHistory: []
+        };
+
+        // Load data
+        async function loadData() {
+            try {
+                if (window.loadFromSupabase) {
+                    const cloudData = await window.loadFromSupabase();
+                    if (cloudData) {
+                        tourData = cloudData;
+                        localStorage.setItem('tourManagementData', JSON.stringify(tourData));
+                        return;
+                    }
+                }
+                
+                const savedData = localStorage.getItem('tourManagementData');
+                if (savedData) {
+                    tourData = JSON.parse(savedData);
+                }
+            } catch (error) {
+                console.error('Error loading data:', error);
+                const savedData = localStorage.getItem('tourManagementData');
+                if (savedData) {
+                    tourData = JSON.parse(savedData);
+                }
+            }
+        }
+
+        // Open image modal
+        function openImageModal(imageUrl) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = imageUrl;
+            modal.style.display = 'flex';
+        }
+
+        // Close image modal
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImageModal();
+            }
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadData();
+            
+            if (window.driverInfoModule) {
+                // Initialize real-time updates
+                window.driverInfoModule.initRealTimeUpdates();
+                
+                // Initialize edit form
+                window.driverInfoModule.initEditForm();
+                
+                // Display initial data
+                window.driverInfoModule.displayDriverProfile();
+                window.driverInfoModule.displayDriverStats();
+            }
+        });
+    </script>
+</body>
+</html>

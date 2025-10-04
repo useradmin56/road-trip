@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="leaflet/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                <div>
+                    <h1><i class="fas fa-route"></i> Tour Management System</h1>
+                    <p>Manage your family trip efficiently</p>
+                </div>
+                <div style="text-align: right;">
+                    <div id="cloudStatus" style="margin-bottom: 10px; padding: 8px 15px; border-radius: 20px; font-size: 13px; font-weight: 500;">
+                        <i class="fas fa-circle" id="cloudIndicator" style="font-size: 8px; margin-right: 8px;"></i>
+                        <span id="cloudText">Checking connection...</span>
+                    </div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <a href="driver-info.html" class="btn" style="font-size: 12px; padding: 6px 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); color: white;" title="Driver Information">
+                            <i class="fas fa-user-tie"></i> Driver
+                        </a>
+                        <a href="family-members.html" class="btn" style="font-size: 12px; padding: 6px 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;" title="Manage Family Members">
+                            <i class="fas fa-users"></i> Family
+                        </a>
+                        <a href="location-tracking.html" class="btn" style="font-size: 12px; padding: 6px 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white;" title="Live Location Tracking">
+                            <i class="fas fa-map-marked-alt"></i> Location
+                        </a>
+                        <a href="route-stops.html" class="btn" style="font-size: 12px; padding: 6px 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white;" title="Route & Stops Planning">
+                            <i class="fas fa-route"></i> Route
+                        </a>
+                        <a href="expenses.html" class="btn" style="font-size: 12px; padding: 6px 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white;" title="Expense Management">
+                            <i class="fas fa-receipt"></i> Expenses
+                        </a>
+                        <a href="dashboard.html" class="btn btn-success" style="font-size: 12px; padding: 6px 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;" title="View Dashboard">
+                            <i class="fas fa-chart-line"></i> Dashboard
+                        </a>
+                        <button id="syncNow" class="btn btn-info" style="font-size: 12px; padding: 6px 12px;" title="Sync all data to cloud">
+                            <i class="fas fa-sync-alt"></i> Sync
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div style="text-align: center; padding: 20px;">
+                <p>&copy; 2024 Tour Management System. All rights reserved.</p>
+                <div style="margin-top: 10px;">
+                    <a href="dashboard.html" class="btn btn-success" style="margin: 0 5px;">
+                        <i class="fas fa-chart-line"></i> View Dashboard
+                    </a>
+                    <button id="generatePdfReport" class="btn btn-warning" style="margin: 0 5px;">
+                        <i class="fas fa-file-pdf"></i> Generate PDF Report
+                    </button>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- External Libraries -->
+    <script src="leaflet/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+    
+    <!-- Cloudinary Configuration -->
+    <script src="cloudinary-config.js"></script>
+    
+    <!-- Supabase Configuration -->
+    <script type="module" src="supabase-config.js"></script>
+    
+    <!-- Application Modules -->
+    <script src="driver-info.js"></script>
+    <script src="family-members.js"></script>
+    <script src="location-tracking.js"></script>
+    
+    <!-- Main Application Script -->
+    <script src="script.js"></script>
+</body>
+</html>

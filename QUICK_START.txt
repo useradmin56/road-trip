@@ -1,0 +1,85 @@
+================================================================================
+                        TOUR MANAGEMENT SYSTEM
+                          QUICK START GUIDE
+================================================================================
+
+STEP 1: SETUP GOOGLE MAPS API (Optional but recommended)
+------------------------------------------------------------------------
+1. Visit: https://console.cloud.google.com/
+2. Create/Select a project
+3. Enable "Maps JavaScript API"
+4. Create API Key
+5. Open index.html and replace "YOUR_GOOGLE_MAPS_API_KEY" with your key
+
+STEP 2: RUN THE APPLICATION
+------------------------------------------------------------------------
+Simply open index.html in your web browser (Chrome, Firefox, Edge, Safari)
+
+STEP 3: BASIC USAGE
+------------------------------------------------------------------------
+
+TAB 1 - DRIVER INFO:
+- Fill in driver details (name, mobile, car number)
+- Set current kilometer reading
+- Add diesel refills when you fill up the tank
+
+TAB 2 - FAMILY MEMBERS:
+- Add details for all 12 family members
+- Add contributions when someone contributes money to the trip
+
+TAB 3 - ROUTE & STOPS:
+- Enter your starting point and destination
+- Add stops along the way with arrival/departure times
+
+TAB 4 - LIVE LOCATION:
+- Click "Start Tracking" for continuous GPS tracking
+- Or "Get Current Location" for a one-time location check
+- View your location history
+
+TAB 5 - EXPENSES:
+- Add all trip expenses by category
+- See total contributions vs expenses
+- View balance automatically calculated
+- See expense breakdown by category
+
+IMPORTANT NOTES:
+------------------------------------------------------------------------
+✓ All data is saved automatically in your browser
+✓ Works completely offline (except Google Maps)
+✓ No internet server needed
+✓ No data is sent anywhere - completely private
+✓ To backup: Press F12, type "exportData()" in console
+
+FEATURES AT A GLANCE:
+------------------------------------------------------------------------
+✓ Driver management with photo upload
+✓ Diesel refill tracking with cost
+✓ 12 family member profiles
+✓ Contribution tracking per member
+✓ Route and stops planning
+✓ Live GPS location tracking
+✓ Location history with timestamps
+✓ Expense tracking with 8 categories
+✓ Auto-calculated balance
+✓ Beautiful, modern, responsive UI
+✓ Mobile-friendly design
+
+TIPS:
+------------------------------------------------------------------------
+• Export data regularly for backup (F12 → exportData())
+• All diesel refills auto-add to expenses
+• Balance = Total Contributions - Total Expenses
+• Location tracking works best on mobile devices
+• Print-friendly - use Ctrl+P to print records
+
+TROUBLESHOOTING:
+------------------------------------------------------------------------
+• Map not showing? Check Google Maps API key
+• Location not working? Enable browser location permission
+• Data not saving? Check browser localStorage is enabled
+• Need to start fresh? F12 → localStorage.clear() → reload
+
+================================================================================
+Enjoy your trip! Safe travels!
+================================================================================
+
